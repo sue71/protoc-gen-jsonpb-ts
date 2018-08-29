@@ -1,0 +1,32 @@
+{
+  "name": "protoc-gen-jsonpb-ts",
+  "version": "0.1.0",
+  "description": "protoc plugin for typescript using json format",
+  "main": "index.js",
+  "bin": {
+    "protoc-gen-jsonpb-ts": "./bin/protoc-gen-jsonpb-ts"
+  },
+  "scripts": {
+    "clean": "rm -rf ./lib",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npm run clean && ./node_modules/.bin/tsc",
+    "patch": "npm run build && npm version patch && npm publish"
+  },
+  "author": {
+    "name": "sue71",
+    "email": "s.masaki07@gmail.com"
+  },
+  "license": "ISC",
+  "devDependencies": {
+    "@types/ejs": "^2.6.0",
+    "@types/google-protobuf": "^3.2.7",
+    "@types/node": "^10.5.6",
+    "@types/prettier": "^1.13.2",
+    "typescript": "^3.0.1"
+  },
+  "dependencies": {
+    "google-protobuf": "^3.6.1",
+    "ejs": "^2.6.1",
+    "prettier": "^1.14.2"
+  }
+}

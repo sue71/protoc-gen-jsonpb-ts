@@ -1,0 +1,5 @@
+export namespace <%= service.name %> {
+  <% service.methodList.forEach( method => { _%>
+  <%- include('method', { method, helper }) _%>
+  <% }); %>
+}

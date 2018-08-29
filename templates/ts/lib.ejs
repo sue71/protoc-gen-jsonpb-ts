@@ -1,0 +1,8 @@
+export type HTTPMethod = "get" | "delete" | "put" | "post" | "patch";
+
+export interface APIRequest<Request, Response> {
+  path: string;
+  method: HTTPMethod;
+  response: Response;
+  request: Request;
+}

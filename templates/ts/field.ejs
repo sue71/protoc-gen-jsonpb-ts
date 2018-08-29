@@ -1,0 +1,9 @@
+<%
+  const isRequired = helper.isRequired(field);
+  const isRepeated = helper.isRepeated(field);
+  const type = helper.mapFieldType(field, filename).type;
+  const typeName = isRepeated ? type + "[]" : type;
+  const name = helper.mapFieldName(field.name);
+  const labeledName = isRequired ? name : name + "?"
+_%>
+<%= labeledName %>: <%= typeName %>;

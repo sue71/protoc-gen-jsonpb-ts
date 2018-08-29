@@ -1,0 +1,21 @@
+<%
+  const { 
+    options,
+    name,
+    path,
+    inputType,
+    outputType
+  } = method;
+
+  const http = helper.mapHTTPOptions(options.http);
+  const request = helper.mapFieldTypeName(inputType.slice(1), filename).type;
+  const response = helper.mapFieldTypeName(outputType.slice(1), filename).type;
+
+%>
+export class <%= name %> implements APIRequest<<%= request %>, <%= response %>> {
+  path = "<%= http.path %>";
+  method: HTTPMethod = "<%= http.method %>";
+  response: <%=response%>
+  constructor(public request: <%= request %>) {
+  }
+}

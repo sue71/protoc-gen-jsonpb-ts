@@ -1,0 +1,45 @@
+<%_
+  let { 
+    name,
+    serviceList,
+    messageTypeList,
+    enumTypeList,
+    dependencyList,
+    pb_package: package
+  } = proto;
+
+  let {
+    ignorePackage
+  } = config;
+
+  const importDependencies = helper.mapImports(dependencyList)
+_%>
+<%- include('/ts/header', { filename: name }) %>
+
+<% importDependencies.forEach( dependency => { _%>
+<%- include('/ts/dependency', { dependency, helper, filename: name }) _%>
+<% }); %>
+
+<% if (!ignorePackage && package) { %>
+export namespace <%=package%> {
+<% } %>
+
+<% if (serviceList.length > 0) { %>
+<%- include('/ts/lib') %>
+<% } %>
+
+<% serviceList.forEach( service => { %>
+<%- include('/ts/service', { service, helper, filename: name }) %>
+<% }); %>
+
+<% messageTypeList.forEach( message => { %>
+<%- include('/ts/message', { message, helper, filename: name }) %>
+<% }); %>
+
+<% enumTypeList.forEach( enumType => { %>
+<%- include('/ts/enum', { enumType, helper, filename: name }) %>
+<% }); _%>
+
+<% if (!ignorePackage && package) { %>
+}
+<% } %>
