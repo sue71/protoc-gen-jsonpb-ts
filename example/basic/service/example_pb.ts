@@ -5,7 +5,7 @@
 import * as example_basic_service_dependency from "../../../example/basic/service/dependency_pb";
 import * as example_basic_shared from "../../../example/basic/shared_pb";
 
-export namespace api {
+export namespace example.basic.service {
   export type HTTPMethod = "get" | "delete" | "put" | "post" | "patch";
 
   export interface APIRequest<Request, Response> {
@@ -25,14 +25,14 @@ export namespace api {
     export class HasDependency
       implements
         APIRequest<
-          example_basic_service_dependency.api.DependencyMessage,
+          example_basic_service_dependency.example.basic.service.DependencyMessage,
           Response
         > {
       path = "/v1/dependency";
       method: HTTPMethod = "post";
       response: Response;
       constructor(
-        public request: example_basic_service_dependency.api.DependencyMessage
+        public request: example_basic_service_dependency.example.basic.service.DependencyMessage
       ) {}
     }
     export class Method implements APIRequest<Request, Response> {
@@ -61,8 +61,8 @@ export namespace api {
     doubleValue?: number;
     boolValue?: boolean;
     items?: string[];
-    dep?: example_basic_service_dependency.api.DependencyMessage;
-    shared?: example_basic_shared.api.Shared;
+    dep?: example_basic_service_dependency.example.basic.service.DependencyMessage;
+    shared?: example_basic_shared.example.basic.Shared;
     status?: Enum;
   }
 

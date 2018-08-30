@@ -1,6 +1,9 @@
 syntax = "proto3";
 
-package api;
+package example.basic.service;
+
+// Only annotation
+import "example/basic/service/annotation.proto";
 
 // well known protos
 import "google/api/annotations.proto";

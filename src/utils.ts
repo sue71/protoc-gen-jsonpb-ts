@@ -2,6 +2,14 @@ import { FileDescriptorProto } from "google-protobuf/google/protobuf/descriptor_
 import { wellKnownProto } from "./ts/well-known-proto";
 
 /**
+ * enumerate object
+ * @param dependency
+ */
+export function toArray<T>(object: Record<string, T>): T[] {
+  return Object.keys(object).map(key => object[key]);
+}
+
+/**
  * get dependency filename
  * @param dependency
  */
