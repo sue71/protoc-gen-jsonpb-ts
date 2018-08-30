@@ -1,5 +1,4 @@
 import { FieldSchema } from "../types";
-import { FieldDescriptorProto } from "google-protobuf/google/protobuf/descriptor_pb";
 
 /**
  * Well-Known-Type maps
@@ -10,8 +9,20 @@ export const wktMap: Record<string, FieldSchema> = {
     type: "string",
     format: "date-time"
   },
+  ".google.protobuf.Empty": {
+    type: "{}"
+  },
   ".google.protobuf.Duration": {
     type: "string"
+  },
+  ".google.protobuf.Any": {
+    type: "any"
+  },
+  ".google.protobuf.FieldMask": {
+    type: "string"
+  },
+  ".google.protobuf.Struct": {
+    type: "Record<string, any>"
   },
   ".google.protobuf.StringValue": {
     type: "string"
@@ -21,11 +32,11 @@ export const wktMap: Record<string, FieldSchema> = {
     format: "byte"
   },
   ".google.protobuf.Int32Value": {
-    type: "integer",
+    type: "number",
     format: "int32"
   },
   ".google.protobuf.UInt32Value": {
-    type: "integer",
+    type: "number",
     format: "int64"
   },
   ".google.protobuf.Int64Value": {
@@ -50,10 +61,10 @@ export const wktMap: Record<string, FieldSchema> = {
   }
 };
 
-export function isWellKnown(field: FieldDescriptorProto.AsObject): boolean {
-  return wktMap[field.typeName] !== undefined;
+export function isWellKnown(typeName: string): boolean {
+  return wktMap[typeName] !== undefined;
 }
 
-export function wellKnownType(field: FieldDescriptorProto.AsObject): FieldSchema {
-  return wktMap[field.typeName];
+export function wellKnownType(typeName: string): FieldSchema {
+  return wktMap[typeName];
 }
