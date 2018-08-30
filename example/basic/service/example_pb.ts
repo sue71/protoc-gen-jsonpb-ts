@@ -16,13 +16,19 @@ export namespace api {
   }
 
   export namespace API {
+    export class WellKnown implements APIRequest<{}, string> {
+      path = "/v1/wellknown";
+      method: HTTPMethod = "post";
+      response: string;
+      constructor(public request: {}) {}
+    }
     export class HasDependency
       implements
         APIRequest<
           example_basic_service_dependency.api.DependencyMessage,
           Response
         > {
-      path = "/v1/pets";
+      path = "/v1/dependency";
       method: HTTPMethod = "post";
       response: Response;
       constructor(
@@ -30,7 +36,7 @@ export namespace api {
       ) {}
     }
     export class Method implements APIRequest<Request, Response> {
-      path = "/v1/pets";
+      path = "/v1/method";
       method: HTTPMethod = "post";
       response: Response;
       constructor(public request: Request) {}
@@ -40,6 +46,20 @@ export namespace api {
   export interface Message {
     value?: string;
     time?: string;
+    empty?: {};
+    duration?: string;
+    anyValue?: any;
+    fieldMask?: string;
+    struct?: Record<string, any>;
+    strValue?: string;
+    bytesValue?: string;
+    int32Value?: number;
+    uint32Value?: number;
+    int64Value?: string;
+    uint64Value?: string;
+    floatValue?: number;
+    doubleValue?: number;
+    boolValue?: boolean;
     items?: string[];
     dep?: example_basic_service_dependency.api.DependencyMessage;
     shared?: example_basic_shared.api.Shared;

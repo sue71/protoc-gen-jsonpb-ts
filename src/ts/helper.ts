@@ -6,7 +6,7 @@ import { Helper } from "../helper";
 import { Config } from "../config";
 import { ExportMap } from "../export-map";
 import { ignoreProto, wellKnownProto } from "../ts/well-known-proto";
-import { snakeToCamel, dependencyFilename, dependencyName } from '../utils';
+import { snakeToCamel, dependencyFilename, dependencyName } from "../utils";
 
 export class TSHelper extends Helper {
   config: Config.AsObject;
@@ -45,19 +45,23 @@ export class TSHelper extends Helper {
     proto: FieldDescriptorProto.AsObject,
     filename: string
   ): FieldSchema {
-    if (isWellKnown(proto) && this.config.jsonFormat) {
-      return wellKnownType(proto);
-    }
     if (
       proto.type === FieldDescriptorProto.Type.TYPE_ENUM ||
       proto.type === FieldDescriptorProto.Type.TYPE_MESSAGE
     ) {
-      return this.mapFieldTypeName(proto.typeName.slice(1), filename);
+      return this.mapFieldTypeName(proto.typeName, filename);
     }
     return primitiveType(proto);
   }
 
   mapFieldTypeName(fullTypeName: string, filename: string) {
+    if (isWellKnown(fullTypeName) && this.config.jsonFormat) {
+      return wellKnownType(fullTypeName);
+    }
+
+    // .foo.bar -> foo.bar
+    fullTypeName = fullTypeName.slice(1);
+
     const field = this.map.getField(fullTypeName);
     const typeName = this.typeName(fullTypeName, field.packageName);
 
