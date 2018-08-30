@@ -2,7 +2,7 @@
 /* tslint:disabled */
 /* eslint-disable */
 
-export namespace api {
+export namespace example.basic {
   export interface Shared {
     value?: string;
   }

@@ -18,7 +18,10 @@ export class TSHelper extends Helper {
 
   mapImports(dependencies: string[], filename: string) {
     return dependencies
-      .filter(dep => this.filterDependencies(dep))
+      .filter(
+        dep =>
+          this.filterDependencies(dep) && this.map.hasDependency(filename, dep)
+      )
       .map(dep => this.dependency(dep, filename));
   }
 
@@ -62,11 +65,11 @@ export class TSHelper extends Helper {
     // .foo.bar -> foo.bar
     fullTypeName = fullTypeName.slice(1);
 
-    const field = this.map.getField(fullTypeName);
-    const typeName = this.typeName(fullTypeName, field.packageName);
+    const definition = this.map.getDefinition(fullTypeName);
+    const typeName = this.typeName(fullTypeName, definition.packageName);
 
     // within namespace
-    if (filename === field.filename) {
+    if (filename === definition.filename) {
       return {
         type: typeName
       };
@@ -74,12 +77,12 @@ export class TSHelper extends Helper {
 
     if (this.config.ignorePackage) {
       return {
-        type: `${dependencyName(field.filename)}.${typeName}`
+        type: `${dependencyName(definition.filename)}.${typeName}`
       };
     }
 
     return {
-      type: `${dependencyName(field.filename)}.${fullTypeName}`
+      type: `${dependencyName(definition.filename)}.${fullTypeName}`
     };
   }
 

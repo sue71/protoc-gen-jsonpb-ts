@@ -4,9 +4,9 @@
 
 import * as example_basic_shared from "../../../example/basic/shared_pb";
 
-export namespace api {
+export namespace example.basic.service {
   export interface DependencyMessage {
     value?: string;
-    shared?: example_basic_shared.api.Shared;
+    shared?: example_basic_shared.example.basic.Shared;
   }
 }

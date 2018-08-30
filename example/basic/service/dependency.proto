@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package api;
+package example.basic.service;
 
 import "example/basic/shared.proto";
 

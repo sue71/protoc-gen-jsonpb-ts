@@ -1,20 +1,24 @@
+import { FieldDescriptorProto } from "google-protobuf/google/protobuf/descriptor_pb";
 import {
   FileDescriptorProto,
   DescriptorProto,
   EnumDescriptorProto
 } from "google-protobuf/google/protobuf/descriptor_pb";
+import { toArray } from "./utils";
 
-interface Field {
+interface Definition {
+  typeName: string;
   filename: string;
   packageName: string;
 }
 
 export class ExportMap {
-  fieldMap: Record<string, Field> = {};
+  definitionMap: Record<string, Definition> = {};
   protoMap: Record<string, FileDescriptorProto> = {};
+  fieldMap: Record<string, FieldDescriptorProto[]> = {};
 
-  public getField(typeName: string): Field {
-    return this.fieldMap[typeName];
+  public getDefinition(typeName: string): Definition {
+    return this.definitionMap[typeName];
   }
 
   public getProto(filename: string): FileDescriptorProto {
@@ -31,6 +35,19 @@ export class ExportMap {
     });
   }
 
+  public hasDependency(filename: string, dependency: string): boolean {
+    return this.getDependencies(filename, dependency).length > 0;
+  }
+
+  public getDependencies(filename: string, dependency: string): Definition[] {
+    const fields = this.fieldMap[filename].map(field => field.getTypeName());
+    return toArray(this.definitionMap).filter(
+      definition =>
+        definition.filename === dependency &&
+        fields.indexOf(definition.typeName)
+    );
+  }
+
   private readMessage(
     message: DescriptorProto,
     proto: FileDescriptorProto,
@@ -40,10 +57,17 @@ export class ExportMap {
     const packageName = proto.getPackage();
     const prefix = scope ? scope + "." : "";
     const name = `${prefix}${message.getName()}`;
-    this.fieldMap[name] = {
+    if (this.fieldMap[filename] === undefined) {
+      this.fieldMap[filename] = [];
+    }
+    this.definitionMap[name] = {
+      typeName: name,
       filename,
       packageName
     };
+    message.getFieldList().forEach(field => {
+      this.fieldMap[filename].push(field);
+    });
     message.getEnumTypeList().forEach(enumType => {
       this.readEnum(enumType, proto, name);
     });
@@ -61,7 +85,8 @@ export class ExportMap {
     const packageName = proto.getPackage();
     const prefix = scope ? scope + "." : "";
     const name = `${prefix}${enumType.getName()}`;
-    this.fieldMap[name] = {
+    this.definitionMap[name] = {
+      typeName: name,
       filename,
       packageName
     };
