@@ -6,7 +6,7 @@ import { Helper } from "../helper";
 import { Config } from "../config";
 import { ExportMap } from "../export-map";
 import { ignoreProto, wellKnownProto } from "../ts/well-known-proto";
-import { snakeToCamel, dependencyFilename, dependencyName } from "../utils";
+import { snakeToCamel, dependencyFilename, dependencyName } from '../utils';
 
 export class TSHelper extends Helper {
   config: Config.AsObject;
@@ -16,10 +16,10 @@ export class TSHelper extends Helper {
     this.config = config.asObject;
   }
 
-  mapImports(dependencies: string[]) {
+  mapImports(dependencies: string[], filename: string) {
     return dependencies
       .filter(dep => this.filterDependencies(dep))
-      .map(this.dependency);
+      .map(dep => this.dependency(dep, filename));
   }
 
   mapHTTPOptions(http: HTTPRule): { method: HTTPMethod; path: string } {
@@ -92,10 +92,10 @@ export class TSHelper extends Helper {
     return fullTypeName.slice(packageName.length + 1);
   }
 
-  private dependency(dependency: string) {
+  private dependency(dependency: string, filename: string) {
     return {
       name: dependencyName(dependency),
-      filename: dependencyFilename(dependency)
+      filename: dependencyFilename(dependency, filename)
     };
   }
 }
