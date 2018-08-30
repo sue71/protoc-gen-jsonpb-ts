@@ -40,11 +40,15 @@ export class ExportMap {
   }
 
   public getDependencies(filename: string, dependency: string): Definition[] {
-    const fields = this.fieldMap[filename].map(field => field.getTypeName());
+    const fields = this.fieldMap[filename];
+    if (!fields) {
+      return [];
+    }
+    const fieldTypeNames = fields.map(field => field.getTypeName());
     return toArray(this.definitionMap).filter(
       definition =>
         definition.filename === dependency &&
-        fields.indexOf(definition.typeName)
+        fieldTypeNames.indexOf(definition.typeName)
     );
   }
 
