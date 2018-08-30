@@ -9,7 +9,7 @@ export abstract class Helper {
     return FieldDescriptorProto.Label.LABEL_REQUIRED === field.label;
   }
 
-  abstract mapImports(dependencies: string[]): DependencySchema[];
+  abstract mapImports(dependencies: string[], filename: string): DependencySchema[];
   abstract mapHTTPOptions(http: HTTPRule);
   abstract mapFieldName(name: string): string;
   abstract mapFieldType(

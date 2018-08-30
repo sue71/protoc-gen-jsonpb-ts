@@ -7,14 +7,16 @@ import "google/api/annotations.proto";
 import "google/protobuf/timestamp.proto";
 
 // user defined
-import "example/dependency.proto";
+import "example/basic/service/dependency.proto";
+import "example/basic/shared.proto";
 
 message Message {
   string value = 1;
   google.protobuf.Timestamp time = 2;
   repeated string items = 3;
   DependencyMessage dep = 4;
-  Enum status = 5;
+  Shared shared = 5;
+  Enum status = 6;
 }
 
 enum Enum {

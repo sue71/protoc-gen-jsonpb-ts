@@ -12,7 +12,7 @@
     ignorePackage
   } = config;
 
-  const importDependencies = helper.mapImports(dependencyList)
+  const importDependencies = helper.mapImports(dependencyList, name)
 _%>
 <%- include('/ts/header', { filename: name }) %>
 

@@ -5,11 +5,11 @@ import { wellKnownProto } from "./ts/well-known-proto";
  * get dependency filename
  * @param dependency
  */
-export function dependencyFilename(dependency: string) {
+export function dependencyFilename(dependency: string, filename: string) {
   if (wellKnownProto[dependency]) {
     return wellKnownProto[dependency];
   }
-  const path = relativePath(dependency);
+  const path = relativePath(filename);
   return `${path}${dependency.replace(".proto", "_pb")}`;
 }
 
@@ -33,10 +33,10 @@ export function snakeToCamel(str: string): string {
 
 /**
  * Get path to root
- * @param fileName
+ * @param filepath
  */
-export function relativePath(fileName: string) {
-  const depth = fileName.split("/").length;
+export function relativePath(filepath: string) {
+  const depth = filepath.split("/").length;
   return depth === 1 ? "./" : new Array(depth).join("../");
 }
 
