@@ -16,7 +16,7 @@
     "name": "sue71",
     "email": "s.masaki07@gmail.com"
   },
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "@types/ejs": "^2.6.0",
     "@types/google-protobuf": "^3.2.7",
