@@ -37,7 +37,7 @@ export const wktMap: Record<string, FieldSchema> = {
   },
   ".google.protobuf.UInt32Value": {
     type: "number",
-    format: "int64"
+    format: "int32"
   },
   ".google.protobuf.Int64Value": {
     type: "string",

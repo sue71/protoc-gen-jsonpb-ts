@@ -20,30 +20,50 @@ export function primitiveType(
     // TODO(sue): enable to select number or string
     case FieldDescriptorProto.Type.TYPE_INT64:
       return {
-        type: "number",
+        type: "string",
         format: "int64"
       };
     case FieldDescriptorProto.Type.TYPE_UINT64:
       return {
-        type: "number",
+        type: "string",
         format: "uint64"
+      };
+    case FieldDescriptorProto.Type.TYPE_SINT64:
+      return {
+        type: "string",
+        format: "int64"
+      };
+    case FieldDescriptorProto.Type.TYPE_FIXED64:
+      return {
+        type: "string",
+        format: "int64"
+      };
+    case FieldDescriptorProto.Type.TYPE_SFIXED64:
+      return {
+        type: "string",
+        format: "int64"
       };
     case FieldDescriptorProto.Type.TYPE_INT32:
       return {
         type: "number",
         format: "int32"
       };
-    case FieldDescriptorProto.Type.TYPE_FIXED64:
+    case FieldDescriptorProto.Type.TYPE_UINT32:
       return {
         type: "number",
-        format: "int64"
+        format: "int32"
       };
-    case FieldDescriptorProto.Type.TYPE_SINT64:
+    case FieldDescriptorProto.Type.TYPE_SINT32:
       return {
         type: "number",
-        format: "int64"
+        format: "int32"
       };
     case FieldDescriptorProto.Type.TYPE_FIXED32:
+      return {
+        type: "number",
+        format: "int32"
+      };
+    case FieldDescriptorProto.Type.TYPE_SFIXED32:
       return {
         type: "number",
         format: "int32"
@@ -62,26 +82,6 @@ export function primitiveType(
       return {
         type: "string",
         format: "byte"
-      };
-    case FieldDescriptorProto.Type.TYPE_UINT32:
-      return {
-        type: "number",
-        format: "int32"
-      };
-    case FieldDescriptorProto.Type.TYPE_SFIXED32:
-      return {
-        type: "number",
-        format: "int32"
-      };
-    case FieldDescriptorProto.Type.TYPE_SFIXED64:
-      return {
-        type: "string",
-        format: "int64"
-      };
-    case FieldDescriptorProto.Type.TYPE_SINT32:
-      return {
-        type: "number",
-        format: "int32"
       };
     default:
       return {

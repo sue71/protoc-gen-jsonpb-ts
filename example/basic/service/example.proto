@@ -47,6 +47,20 @@ message Message {
   DependencyMessage dep = 18;
   Shared shared = 19;
   Enum status = 20;
+  double double = 21;
+  float float = 22;
+  int64 int64 = 23;
+  uint64 uint64 = 24;
+  sint64 sint64 = 25;
+  fixed64 fixed64 = 26;
+  sfixed64 sfixed64 = 27;
+  int32 int32 = 28;
+  uint32 uint32 = 29;
+  sint32 sint32 = 30;
+  fixed32 fixed32 = 31;
+  sfixed32 sfixed32 = 32;
+  string string = 33;
+  bytes byte = 34;
 }
 
 enum Enum {
