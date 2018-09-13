@@ -27,10 +27,10 @@ export function dependencyFilename(dependency: string, filename: string) {
  */
 export function dependencyName(dependency: string) {
   return dependency
+    .replace(".proto", "")
     .replace(/\//g, "_")
     .replace(/\./g, "_")
-    .replace(/\-/g, "_")
-    .replace(".proto", "");
+    .replace(/\-/g, "_");
 }
 
 /**
