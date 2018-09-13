@@ -64,6 +64,20 @@ export namespace example.basic.service {
     dep?: example_basic_service_dependency.example.basic.service.DependencyMessage;
     shared?: example_basic_shared.example.basic.Shared;
     status?: Enum;
+    double?: number;
+    float?: number;
+    int64?: string;
+    uint64?: string;
+    sint64?: string;
+    fixed64?: string;
+    sfixed64?: string;
+    int32?: number;
+    uint32?: number;
+    sint32?: number;
+    fixed32?: number;
+    sfixed32?: number;
+    string?: string;
+    byte?: string;
   }
 
   export interface Request {}
