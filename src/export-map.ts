@@ -44,11 +44,11 @@ export class ExportMap {
     if (!fields) {
       return [];
     }
-    const fieldTypeNames = fields.map(field => field.getTypeName());
+    const fieldTypeNames = fields.map(field => field.getTypeName().slice(1));
     return toArray(this.definitionMap).filter(
       definition =>
         definition.filename === dependency &&
-        fieldTypeNames.indexOf(definition.typeName)
+        fieldTypeNames.indexOf(definition.typeName) !== -1
     );
   }
 

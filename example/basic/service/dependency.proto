@@ -3,6 +3,7 @@ syntax = "proto3";
 package example.basic.service;
 
 import "example/basic/shared.proto";
+import "google/type/date.proto";
 
 message DependencyMessage {
 	string value = 1;
