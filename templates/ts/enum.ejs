@@ -1,9 +1,17 @@
 <%
 const { valueList, name } = enumType;
 const isLastIndex = (index) => index === valueList.length - 1;
+const { enumFormat } = config;
 _%>
+<%_ if (enumFormat === "enum") { %>
 export enum <%= name %> {
-<%_ valueList.forEach( (value, index) => { _%>
-<%=value.name%> = "<%=value.name%>"<% if (!isLastIndex(index)) { %>, <% } %>
-<% }); _%>
+  <%_ valueList.forEach( (value, index) => { _%>
+  <%=value.name%> = "<%=value.name%>"<% if (!isLastIndex(index)) { %>, <% } %>
+  <% }); _%>
 }
+<%_ } else { %>
+export type <%= name %> = 
+  <%_ valueList.forEach( (value, index) => { _%>
+  "<%=value.name%>"<% if (!isLastIndex(index)) { %> | <% } %>
+  <% }); _%>
+<% } %>

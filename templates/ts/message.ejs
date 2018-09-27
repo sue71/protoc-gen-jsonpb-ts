@@ -4,7 +4,7 @@ const hasNested = nestedTypeList.length > 0 || enumTypeList.length > 0
 _%>
 export interface <%= name %> {
 <% fieldList.forEach( field => { _%>
-  <%- include('field', { field, helper, filename }) %>
+  <%- include('field', { field, helper, filename, config }) %>
 <% }); %>
 }
 <% if (hasNested) { %>
@@ -12,11 +12,11 @@ export namespace <%= name %> {
 <% } %>
 
 <% nestedTypeList.forEach( message => { _%>
-<%- include('message', { message, helper, filename }) %>
+<%- include('message', { message, helper, filename, config }) %>
 <% }); _%>
 
 <% enumTypeList.forEach( enumType => { _%>
-<%- include('enum', { enumType, helper, filename }) _%>
+<%- include('enum', { enumType, helper, filename, config }) _%>
 <% }); _%>
 
 <% if (hasNested) { _%>
