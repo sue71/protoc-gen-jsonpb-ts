@@ -17,7 +17,7 @@ _%>
 <%- include('/ts/header', { filename: name }) %>
 
 <% importDependencies.forEach( dependency => { _%>
-<%- include('/ts/dependency', { dependency, helper, filename: name }) _%>
+<%- include('/ts/dependency', { dependency, helper, filename: name, config }) _%>
 <% }); %>
 
 <% if (!ignorePackage && package) { %>
@@ -29,15 +29,15 @@ export namespace <%=package%> {
 <% } %>
 
 <% serviceList.forEach( service => { %>
-<%- include('/ts/service', { service, helper, filename: name }) %>
+<%- include('/ts/service', { service, helper, filename: name, config }) %>
 <% }); %>
 
 <% messageTypeList.forEach( message => { %>
-<%- include('/ts/message', { message, helper, filename: name }) %>
+<%- include('/ts/message', { message, helper, filename: name, config }) %>
 <% }); %>
 
 <% enumTypeList.forEach( enumType => { %>
-<%- include('/ts/enum', { enumType, helper, filename: name }) %>
+<%- include('/ts/enum', { enumType, helper, filename: name, config }) %>
 <% }); _%>
 
 <% if (!ignorePackage && package) { %>

@@ -4,20 +4,27 @@ import * as process from "process";
 
 const CONFIG_FILENAME = "protoc-gen-tsconfig.json";
 
+type FailureReason = "invalidOption" | "invalidValue";
 interface ValidationResult {
   valid: boolean;
   field?: string;
+  value?: any;
+  reason?: FailureReason;
 }
 
 interface Options {
   config: string;
   jsonFormat: boolean;
   ignorePackage: boolean;
+  enumFormat: "stringLiteral" | "enum";
 }
 
 namespace Options {
   export function enumerate(): (keyof Options)[] {
-    return ["config", "jsonFormat", "ignorePackage"];
+    return ["config", "jsonFormat", "ignorePackage", "enumFormat"];
+  }
+  export function enumerateEnumFormat(): Options["enumFormat"][] {
+    return ["stringLiteral", "enum"];
   }
 }
 
@@ -25,7 +32,8 @@ export class Config {
   static defaultOptions: Options = {
     jsonFormat: true,
     config: path.join(process.cwd(), CONFIG_FILENAME),
-    ignorePackage: false
+    ignorePackage: false,
+    enumFormat: "enum"
   };
 
   static initWithCLIOptions(options: string): Config {
@@ -41,23 +49,35 @@ export class Config {
       options.ignorePackage !== undefined
         ? options.ignorePackage
         : this.defaultOptions.ignorePackage;
+    const enumFormat = options.enumFormat || this.defaultOptions.enumFormat;
     const config = options.config || this.defaultOptions.config;
+
     return this.initWithConfig({
       jsonFormat,
       config,
-      ignorePackage
+      ignorePackage,
+      enumFormat
     });
   }
 
   static initWithConfig(options: Options) {
-    const config = loadConfig(options.config);
+    const config = Object.assign({}, options, loadConfig(options.config));
 
-    const validation = validate(config);
+    const validation = validate(config as any);
     if (!validation.valid) {
-      throw new Error(`${validation.field} is not valid option.`);
+      switch (validation.reason) {
+        case "invalidOption":
+          throw new Error(`${validation.field} is not valid option.`);
+        case "invalidValue":
+          throw new Error(
+            `The value of ${validation.field} is invalid. value: ${
+              validation.value
+            }`
+          );
+      }
     }
 
-    return new this(Object.assign({}, options, config));
+    return new this(config);
   }
 
   constructor(public options: Options) {}
@@ -88,11 +108,24 @@ function parseCLIOptions(options: string): Partial<Options> {
   }, {}) as Partial<Options>;
 }
 
-function validate(config: any): ValidationResult {
+function validate(config: Options): ValidationResult {
   const keys = Options.enumerate() as string[];
-  const invalidKey = Object.keys(config).find(key => keys.indexOf(key) === -1);
-  if (invalidKey) {
-    return { valid: false, field: invalidKey };
+  const invalidOption = Object.keys(config).find(
+    key => keys.indexOf(key) === -1
+  );
+  if (invalidOption) {
+    return { valid: false, field: invalidOption, reason: "invalidOption" };
+  }
+  if (
+    config.enumFormat &&
+    Options.enumerateEnumFormat().indexOf(config.enumFormat) === -1
+  ) {
+    return {
+      valid: false,
+      field: "enumFormat",
+      value: config.enumFormat,
+      reason: "invalidValue"
+    };
   }
   return { valid: true };
 }
