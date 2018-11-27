@@ -14,7 +14,12 @@
 
   const importDependencies = helper.mapImports(dependencyList, name)
 _%>
+
 <%- include('/ts/header', { filename: name }) %>
+
+<% if (serviceList.length > 0) { %>
+<%- include('/ts/lib') %>
+<% } %>
 
 <% importDependencies.forEach( dependency => { _%>
 <%- include('/ts/dependency', { dependency, helper, filename: name, config }) _%>
@@ -22,10 +27,6 @@ _%>
 
 <% if (!ignorePackage && package) { %>
 export namespace <%=package%> {
-<% } %>
-
-<% if (serviceList.length > 0) { %>
-<%- include('/ts/lib') %>
 <% } %>
 
 <% serviceList.forEach( service => { %>

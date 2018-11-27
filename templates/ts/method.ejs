@@ -13,9 +13,9 @@
 
 %>
 export class <%= name %> implements APIRequest<<%= request %>, <%= response %>> {
+  _response?: <%=response%>
   path = "<%= http.path %>";
   method: HTTPMethod = "<%= http.method %>";
-  response: <%=response%>
-  constructor(public request: <%= request %>) {
+  constructor(public parameter: <%= request %>) {
   }
 }

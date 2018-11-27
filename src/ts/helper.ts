@@ -1,12 +1,13 @@
 import { FieldDescriptorProto } from "google-protobuf/google/protobuf/descriptor_pb";
 import { isWellKnown, wellKnownType } from "./well-known-type";
-import { FieldSchema, HTTPMethod, HTTPRule } from "../types";
+import { FieldSchema, HTTPRule } from "../types";
 import { primitiveType } from "./primitive-type";
 import { Helper } from "../helper";
 import { Config } from "../config";
 import { ExportMap } from "../export-map";
 import { ignoreProto, wellKnownProto } from "../ts/well-known-proto";
 import { snakeToCamel, dependencyFilename, dependencyName } from "../utils";
+import { HTTPMethod } from "../lib";
 
 export class TSHelper extends Helper {
   config: Config.AsObject;

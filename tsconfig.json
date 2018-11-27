@@ -8,10 +8,10 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "strict": false,
+    "declaration": true,
     "removeComments": true,
     "suppressImplicitAnyIndexErrors": true,
     "allowSyntheticDefaultImports": true,
-    "allowJs": true,
     "baseUrl": ".",
     "outDir": "lib"
   },
