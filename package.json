@@ -3,6 +3,7 @@
   "version": "0.1.6",
   "description": "protoc plugin for typescript using json format",
   "main": "index.js",
+  "types": "lib/lib.d.ts",
   "bin": {
     "protoc-gen-jsonpb-ts": "./bin/protoc-gen-jsonpb-ts"
   },

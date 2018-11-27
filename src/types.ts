@@ -2,7 +2,6 @@ export interface FieldSchema {
   type: string;
   format?: string;
 }
-export type HTTPMethod = "post" | "put" | "get" | "delete" | "patch";
 
 export interface DependencySchema {
   name: string;
