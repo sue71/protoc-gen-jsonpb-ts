@@ -24,7 +24,7 @@ import "google/protobuf/wrappers.proto";
 import "google/type/date.proto";
 
 // user defined
-import "example/basic/service/dependency.proto";
+import "example/basic/dependency/dependency.proto";
 import "example/basic/shared.proto";
 
 message Message {
@@ -45,7 +45,7 @@ message Message {
   google.protobuf.DoubleValue doubleValue = 15;
   google.protobuf.BoolValue boolValue = 16;
   repeated string items = 17;
-  DependencyMessage dep = 18;
+  example.basic.dependency.DependencyMessage dep = 18;
   Shared shared = 19;
   Enum status = 20;
   double double = 21;
@@ -76,7 +76,7 @@ service API {
       body : "*"
     };
   }
-  rpc HasDependency(DependencyMessage) returns (Response) {
+  rpc HasDependency(example.basic.dependency.DependencyMessage) returns (Response) {
     option (google.api.http) = {
       post : "/v1/dependency"
       body : "*"

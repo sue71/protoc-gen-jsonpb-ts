@@ -19,10 +19,11 @@ export class TSHelper extends Helper {
 
   mapImports(dependencies: string[], filename: string) {
     return dependencies
-      .filter(
-        dep =>
+      .filter(dep => {
+        return (
           this.filterDependencies(dep) && this.map.hasDependency(filename, dep)
-      )
+        );
+      })
       .map(dep => this.dependency(dep, filename));
   }
 

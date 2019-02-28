@@ -4,13 +4,13 @@
 
 import { APIRequest, HTTPMethod } from "protoc-gen-jsonpb-ts";
 
-import * as example_basic_service_dependency from "../../../example/basic/service/dependency_pb";
+import * as example_basic_dependency_dependency from "../../../example/basic/dependency/dependency_pb";
 import * as example_basic_shared from "../../../example/basic/shared_pb";
 
 export namespace example.basic.service {
   export namespace API {
     export class WellKnown implements APIRequest<{}, string> {
-      _response: string;
+      _response?: string;
       path = "/v1/wellknown";
       method: HTTPMethod = "post";
       constructor(public parameter: {}) {}
@@ -18,18 +18,18 @@ export namespace example.basic.service {
     export class HasDependency
       implements
         APIRequest<
-          example_basic_service_dependency.example.basic.service.DependencyMessage,
+          example_basic_dependency_dependency.example.basic.dependency.DependencyMessage,
           Response
         > {
-      _response: Response;
+      _response?: Response;
       path = "/v1/dependency";
       method: HTTPMethod = "post";
       constructor(
-        public parameter: example_basic_service_dependency.example.basic.service.DependencyMessage
+        public parameter: example_basic_dependency_dependency.example.basic.dependency.DependencyMessage
       ) {}
     }
     export class Method implements APIRequest<Request, Response> {
-      _response: Response;
+      _response?: Response;
       path = "/v1/method";
       method: HTTPMethod = "post";
       constructor(public parameter: Request) {}
@@ -54,7 +54,7 @@ export namespace example.basic.service {
     doubleValue?: number;
     boolValue?: boolean;
     items?: string[];
-    dep?: example_basic_service_dependency.example.basic.service.DependencyMessage;
+    dep?: example_basic_dependency_dependency.example.basic.dependency.DependencyMessage;
     shared?: example_basic_shared.example.basic.Shared;
     status?: Enum;
     double?: number;
