@@ -94,7 +94,7 @@ export class TSHelper extends Helper {
         ignoreProto.indexOf(dependency) === -1 && !wellKnownProto[dependency]
       );
     }
-    return ignoreProto.indexOf(dependency);
+    return ignoreProto.indexOf(dependency) === -1;
   }
 
   private typeName(fullTypeName: string, packageName: string) {
