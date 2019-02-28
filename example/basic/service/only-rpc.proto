@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+import "example/basic/dependency/dependency.proto";
+import "google/api/annotations.proto";
+
+service OnlyRPC {
+  rpc Method(example.basic.dependency.DependencyMessage) returns (example.basic.dependency.DependencyMessage) {
+    option (google.api.http) = {
+      post : "/v1/method"
+      body : "*"
+    };
+	}
+}

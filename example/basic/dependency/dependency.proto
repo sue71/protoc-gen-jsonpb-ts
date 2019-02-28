@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package example.basic.service;
+package example.basic.dependency;
 
 import "example/basic/shared.proto";
 import "google/type/date.proto";

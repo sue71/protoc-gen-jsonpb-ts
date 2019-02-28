@@ -1,4 +1,4 @@
-import { FieldDescriptorProto } from "google-protobuf/google/protobuf/descriptor_pb";
+import { ServiceDescriptorProto } from "google-protobuf/google/protobuf/descriptor_pb";
 import {
   FileDescriptorProto,
   DescriptorProto,
@@ -15,7 +15,7 @@ interface Definition {
 export class ExportMap {
   definitionMap: Record<string, Definition> = {};
   protoMap: Record<string, FileDescriptorProto> = {};
-  fieldMap: Record<string, FieldDescriptorProto[]> = {};
+  fieldMap: Record<string, string[]> = {};
 
   public getDefinition(typeName: string): Definition {
     return this.definitionMap[typeName];
@@ -27,6 +27,9 @@ export class ExportMap {
 
   public addProto(proto: FileDescriptorProto) {
     this.protoMap[proto.getName()] = proto;
+    proto.getServiceList().forEach(service => {
+      this.readService(service, proto);
+    });
     proto.getEnumTypeList().forEach(enumType => {
       this.readEnum(enumType, proto, proto.getPackage());
     });
@@ -44,12 +47,26 @@ export class ExportMap {
     if (!fields) {
       return [];
     }
-    const fieldTypeNames = fields.map(field => field.getTypeName().slice(1));
+    const fieldTypeNames = fields;
     return toArray(this.definitionMap).filter(
       definition =>
         definition.filename === dependency &&
         fieldTypeNames.indexOf(definition.typeName) !== -1
     );
+  }
+
+  private readService(
+    service: ServiceDescriptorProto,
+    proto: FileDescriptorProto
+  ) {
+    const filename = proto.getName();
+    if (this.fieldMap[filename] === undefined) {
+      this.fieldMap[filename] = [];
+    }
+    service.getMethodList().forEach(method => {
+      this.fieldMap[filename].push(method.getInputType().slice(1));
+      this.fieldMap[filename].push(method.getOutputType().slice(1));
+    });
   }
 
   private readMessage(
@@ -70,7 +87,7 @@ export class ExportMap {
       packageName
     };
     message.getFieldList().forEach(field => {
-      this.fieldMap[filename].push(field);
+      this.fieldMap[filename].push(field.getTypeName().slice(1));
     });
     message.getEnumTypeList().forEach(enumType => {
       this.readEnum(enumType, proto, name);
