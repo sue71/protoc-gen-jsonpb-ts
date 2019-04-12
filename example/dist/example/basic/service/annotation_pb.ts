@@ -2,4 +2,6 @@
 /* tslint:disabled */
 /* eslint-disable */
 
-export namespace api {}
+export namespace api {
+
+}
