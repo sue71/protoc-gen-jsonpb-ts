@@ -98,6 +98,9 @@ export class TSHelper extends Helper {
   }
 
   private typeName(fullTypeName: string, packageName: string) {
+    if (packageName.length === 0) {
+      return fullTypeName;
+    }
     return fullTypeName.slice(packageName.length + 1);
   }
 
