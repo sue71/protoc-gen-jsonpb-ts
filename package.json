@@ -24,7 +24,7 @@
     "@types/google-protobuf": "3.7.2",
     "@types/node": "10.5.6",
     "@types/prettier": "1.13.2",
-    "typescript": "3.0.1"
+    "typescript": "3.6.3"
   },
   "dependencies": {
     "google-protobuf": "^3.6.1",
