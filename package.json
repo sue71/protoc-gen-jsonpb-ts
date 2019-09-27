@@ -22,7 +22,7 @@
   "devDependencies": {
     "@types/ejs": "2.6.0",
     "@types/google-protobuf": "3.7.2",
-    "@types/node": "10.5.6",
+    "@types/node": "10.14.19",
     "@types/prettier": "1.18.2",
     "typescript": "3.6.3"
   },
