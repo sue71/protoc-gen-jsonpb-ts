@@ -12,10 +12,17 @@ interface Definition {
   packageName: string;
 }
 
+interface JsonNameMapping {
+  messageName: string;
+  fieldName: string;
+  jsonName: string;
+}
+
 export class ExportMap {
   definitionMap: Record<string, Definition> = {};
   protoMap: Record<string, FileDescriptorProto> = {};
   fieldMap: Record<string, string[]> = {};
+  jsonNameMap: Record<string, JsonNameMapping[]> = {};
 
   public getDefinition(typeName: string): Definition {
     return this.definitionMap[typeName];
@@ -81,6 +88,9 @@ export class ExportMap {
     if (this.fieldMap[filename] === undefined) {
       this.fieldMap[filename] = [];
     }
+    if (this.jsonNameMap[filename] === undefined) {
+      this.jsonNameMap[filename] = [];
+    }
     this.definitionMap[name] = {
       typeName: name,
       filename,
@@ -88,6 +98,13 @@ export class ExportMap {
     };
     message.getFieldList().forEach(field => {
       this.fieldMap[filename].push(field.getTypeName().slice(1));
+      if (field.getJsonName() !== undefined) {
+        this.jsonNameMap[filename].push({
+          messageName: message.getName(),
+          fieldName: field.getName(),
+          jsonName: field.getJsonName()
+        });
+      }
     });
     message.getEnumTypeList().forEach(enumType => {
       this.readEnum(enumType, proto, name);

@@ -4,7 +4,7 @@ const hasNested = nestedTypeList.length > 0 || enumTypeList.length > 0
 _%>
 export interface <%= name %> {
 <% fieldList.forEach( field => { _%>
-  <%- include('field', { field, helper, filename, config }) %>
+  <%- include('field', { field, helper, filename, messageName: name, config }) %>
 <% }); %>
 }
 <% if (hasNested) { %>

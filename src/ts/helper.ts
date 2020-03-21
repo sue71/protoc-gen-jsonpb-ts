@@ -42,8 +42,15 @@ export class TSHelper extends Helper {
     );
   }
 
-  mapFieldName(name: string): string {
-    return snakeToCamel(name);
+  mapFieldName(name: string, filename: string, messageName: string): string {
+    const mapping = this.map.jsonNameMap[filename].find(
+      m => m.messageName === messageName && m.fieldName === name
+    );
+    if (mapping) {
+      return mapping.jsonName;
+    } else {
+      return snakeToCamel(name);
+    }
   }
 
   mapFieldType(
