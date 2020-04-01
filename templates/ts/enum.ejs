@@ -6,7 +6,7 @@ _%>
 <%_ if (enumFormat === "enum") { %>
 export enum <%= name %> {
   <%_ valueList.forEach( (value, index) => { _%>
-  <%=value.name%> = "<%=value.name%>"<% if (!isLastIndex(index)) { %>, <% } %>
+  <%=value.name%> = <%=value.number%><% if (!isLastIndex(index)) { %>, <% } %>
   <% }); _%>
 }
 <%_ } else { %>
