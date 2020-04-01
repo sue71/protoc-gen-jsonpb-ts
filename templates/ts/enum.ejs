@@ -12,6 +12,6 @@ export enum <%= name %> {
 <%_ } else { %>
 export type <%= name %> = 
   <%_ valueList.forEach( (value, index) => { _%>
-  "<%=value.name%>"<% if (!isLastIndex(index)) { %> | <% } %>
+  <%=value.number%><% if (!isLastIndex(index)) { %> | <% } %>
   <% }); _%>
 <% } %>
