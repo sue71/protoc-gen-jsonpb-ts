@@ -11,7 +11,7 @@ export abstract class Helper {
 
   abstract mapImports(dependencies: string[], filename: string): DependencySchema[];
   abstract mapHTTPOptions(http: HTTPRule);
-  abstract mapFieldName(name: string): string;
+  abstract mapFieldName(name: string, filename: string, messageName: string): string;
   abstract mapFieldType(
     proto: FieldDescriptorProto.AsObject,
     filename: string
