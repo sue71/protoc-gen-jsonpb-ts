@@ -20,7 +20,7 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "@types/ejs": "3.0.1",
+    "@types/ejs": "3.0.2",
     "@types/google-protobuf": "3.7.2",
     "@types/node": "10.17.18",
     "@types/prettier": "1.19.1",
