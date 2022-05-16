@@ -21,7 +21,7 @@
   "license": "MIT",
   "devDependencies": {
     "@types/ejs": "3.0.2",
-    "@types/google-protobuf": "3.7.2",
+    "@types/google-protobuf": "3.15.6",
     "@types/node": "10.17.18",
     "@types/prettier": "2.0.0",
     "typescript": "3.8.3"
