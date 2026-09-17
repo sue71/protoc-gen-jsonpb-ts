@@ -27,7 +27,7 @@
     "typescript": "3.8.3"
   },
   "dependencies": {
-    "google-protobuf": "^3.6.1",
+    "google-protobuf": "^4.0.0",
     "ejs": "^3.0.0",
     "prettier": "^2.0.0"
   }
